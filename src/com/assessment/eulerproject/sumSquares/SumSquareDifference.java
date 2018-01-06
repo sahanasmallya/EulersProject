@@ -1,4 +1,4 @@
-package com.dataenrichment.eulerproject;
+package com.assessment.eulerproject.sumSquares;
 
 public class SumSquareDifference {
 

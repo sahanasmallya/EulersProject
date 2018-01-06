@@ -1,4 +1,4 @@
-package com.dataenrichment.eulerproject;
+package com.assessment.eulerproject.passcodeDerivation;
 
 public class PasscodeException extends Exception {
 
