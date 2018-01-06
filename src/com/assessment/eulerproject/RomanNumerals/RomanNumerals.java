@@ -7,19 +7,19 @@ import java.util.TreeMap;
 
 import com.assessment.eulerproject.services.InputReaderService;
 import com.assessment.eulerproject.services.RepositoryService;
-import com.assessment.eulerproject.services.RomansNumeralsService;
+import com.assessment.eulerproject.services.RomanNumeralService;
 import com.assessment.eulerproject.services.impl.InputReaderServiceImpl;
 import com.assessment.eulerproject.services.impl.RepositoryServiceImpl;
 import com.assessment.eulerproject.services.impl.RomanNumeralsServiceImpl;
 
-public class RomanNumerals implements RepositoryService,InputReaderService, RomansNumeralsService {
+public class RomanNumerals implements RepositoryService,InputReaderService, RomanNumeralService {
 
 	
 	//Set of services to distribute load. This ensures loose coupling which is good.
 	
-	static RepositoryServiceImpl repository = new RepositoryServiceImpl();
-	static InputReaderServiceImpl inputReader = new InputReaderServiceImpl();
-	static RomanNumeralsServiceImpl romanImpl = new RomanNumeralsServiceImpl();
+	static RepositoryService repository = new RepositoryServiceImpl();
+	static InputReaderService inputReader = new InputReaderServiceImpl();
+	static RomanNumeralService romanImpl = new RomanNumeralsServiceImpl();
 	 
 	
 	public static void main(String[] s) {
@@ -59,7 +59,7 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 
 	@Override
 	public List<String> readInput(String path) {
-		return inputReader.readFromFile(new File(path));
+		return inputReader.readInput(path);
 	}
 
 	@Override

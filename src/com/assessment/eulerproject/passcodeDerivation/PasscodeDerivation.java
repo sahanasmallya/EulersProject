@@ -1,43 +1,30 @@
 package com.assessment.eulerproject.passcodeDerivation;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PasscodeDerivation {
+import com.assessment.eulerproject.services.InputReaderService;
+import com.assessment.eulerproject.services.PasscodeDerivationService;
+import com.assessment.eulerproject.services.impl.InputReaderServiceImpl;
+import com.assessment.eulerproject.services.impl.PasscodeDerivationServiceImpl;
+
+public class PasscodeDerivation implements InputReaderService, PasscodeDerivationService {
+
+	
+	
+	static InputReaderService inputReader = new InputReaderServiceImpl();
+	static PasscodeDerivationService passcodeDerivationService = new PasscodeDerivationServiceImpl();
+	
+	
 
 	public static void main(String[] args) {
 		PasscodeDerivation passcodeDerivation = new PasscodeDerivation();
-		List<String> keyLogs = passcodeDerivation.getInputFromFile(new File("keylog.txt"));
+		List<String> keyLogs = passcodeDerivation.readInput("keylog.txt");
 
 		String passcode = "";
 		List<Character> passcodeChars = new ArrayList<Character>();
-		for (String keyLog : keyLogs) {
-			if (!passcodeChars.contains(keyLog.charAt(0)))
-				passcodeDerivation.addPasscodeChars(passcodeChars, keyLog.charAt(0));
-			for (int i = 1; i < keyLog.length(); i++) {
-				Character current = keyLog.charAt(i);
-				Character previous = keyLog.charAt(i - 1);
-				if (passcodeChars.contains(current)) {
-					// get the index of the previous character
-					int previousIndex = passcodeChars.indexOf(previous);
-					// get the index of the current character
-					int currentIndex = passcodeChars.indexOf(current);
 
-					if (currentIndex < previousIndex) {
-						//passcodeChars.remove(current);
-						passcodeDerivation.updatePositionOfCurrent(passcodeChars, previousIndex, currentIndex);
-					}
-				} else {
-					passcodeDerivation.addPasscodeChars(passcodeChars, keyLog.charAt(i));
-				}
-			}
-
-		}
+		passcodeDerivation.derivePasscodeChars(passcodeDerivation, keyLogs, passcodeChars);
 
 		for (Character c : passcodeChars) {
 			passcode = passcode + c;
@@ -46,42 +33,25 @@ public class PasscodeDerivation {
 
 	}
 
-	public void updatePositionOfCurrent(List<Character> passcodeChars, Integer previousIndex, Integer currentIndex) {
-		Character previous = passcodeChars.get(previousIndex);
-		Character current = passcodeChars.get(currentIndex);
-		passcodeChars.set(previousIndex,current);
-		passcodeChars.set(currentIndex,previous);
-		
+	@Override
+	public List<String> readInput(String path) {
+		return inputReader.readInput(path);
+	}
+
+	@Override
+	public void derivePasscodeChars(PasscodeDerivation passcodeDerivation, List<String> keyLogs,
+			List<Character> passcodeChars) {
+		passcodeDerivationService.derivePasscodeChars(passcodeDerivation, keyLogs, passcodeChars);
+	}
+
+	public void swapPositionsOfChars(List<Character> passcodeChars, Integer previousIndex, Integer currentIndex) {
+		passcodeDerivationService.swapPositionsOfChars(passcodeChars, previousIndex, currentIndex);
+
 	}
 
 	public void addPasscodeChars(List<Character> passcodeChars, Character passcodeChar) {
-		try {
-			if (passcodeChars.contains(passcodeChar))
-				throw new PasscodeException("Attempt to add duplicate value");
-			passcodeChars.add(passcodeChar);
-		} catch (PasscodeException e) {
-			System.out.println(e.getMessage());
-		}
+		passcodeDerivationService.addPasscodeChars(passcodeChars, passcodeChar);
 
-	}
-
-	public List<String> getInputFromFile(File file) {
-
-		File inputFile = file;
-		List<String> keylogs = new ArrayList<String>();
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(inputFile));
-
-			String input = "";
-			while ((input = br.readLine()) != null) {
-				keylogs.add(input);
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-		return keylogs;
 	}
 
 }

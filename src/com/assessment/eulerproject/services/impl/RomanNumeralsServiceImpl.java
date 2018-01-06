@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.assessment.eulerproject.services.RomansNumeralsService;
+import com.assessment.eulerproject.services.RomanNumeralService;
 
-public class RomanNumeralsServiceImpl implements RomansNumeralsService {
+public class RomanNumeralsServiceImpl implements RomanNumeralService {
 
 	public String toRoman(Integer decimalNumber, TreeMap<Integer, String> decimalToRomans) {
 
