@@ -15,7 +15,7 @@ import java.util.TreeMap;
 public class RomanNumeralsOptimization {
 
 	public static void main(String[] s) {
-		Integer count = -1;
+		
 		RomanNumeralsOptimization romanNumerals = new RomanNumeralsOptimization();
 		Map<String, Integer> denominations = romanNumerals.getDenominations();
 		TreeMap<Integer, String> minimalDenominations = romanNumerals.getMinimalDenominations();
