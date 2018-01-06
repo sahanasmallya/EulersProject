@@ -1,8 +1,10 @@
-package com.assessment.eulerproject.RomanNumerals;
+package com.assessment.eulerproject.services.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
+import com.assessment.eulerproject.services.RepositoryService;
 
 public class RepositoryServiceImpl implements RepositoryService {
 

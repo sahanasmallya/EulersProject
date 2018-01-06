@@ -12,6 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.assessment.eulerproject.services.InputReaderService;
+import com.assessment.eulerproject.services.RepositoryService;
+import com.assessment.eulerproject.services.RomansNumeralsService;
+import com.assessment.eulerproject.services.impl.InputReaderServiceImpl;
+import com.assessment.eulerproject.services.impl.RepositoryServiceImpl;
+import com.assessment.eulerproject.services.impl.RomanNumeralsServiceImpl;
+
 public class RomanNumerals implements RepositoryService,InputReaderService, RomansNumeralsService {
 
 	
