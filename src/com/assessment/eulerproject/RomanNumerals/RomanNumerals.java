@@ -69,6 +69,11 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 		return repository.getDecToRoman();
 	}
 
+	@Override
+	public List<Character> getSubtractives() {
+		return romanImpl.getSubtractives();
+	}
+
 
 
 	
