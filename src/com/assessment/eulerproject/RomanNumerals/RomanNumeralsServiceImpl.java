@@ -31,7 +31,8 @@ public class RomanNumeralsServiceImpl implements RomansNumeralsService {
 
 	public Integer toDecimal(String input, Map<String, Integer> romansToDec) {
 		Integer decimal = 0;
-		List<Character> subtractives = getSubtractives();
+		List<Character> subtractives = getSubtractives(); //  I, X, and C : REference https://projecteuler.net/about=roman_numerals
+			
 
 		for (int i = 0; i < input.length(); i++) {
 			Character character = input.charAt(i);

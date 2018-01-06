@@ -15,6 +15,8 @@ import java.util.TreeMap;
 public class RomanNumerals implements RepositoryService,InputReaderService, RomansNumeralsService {
 
 	
+	//Set of services to distribute load. This ensures loose coupling which is good.
+	
 	static RepositoryServiceImpl repository = new RepositoryServiceImpl();
 	static InputReaderServiceImpl inputReader = new InputReaderServiceImpl();
 	static RomanNumeralsServiceImpl romanImpl = new RomanNumeralsServiceImpl();
@@ -28,6 +30,7 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 		Map<String, Integer> romanToDecMap = romanNumerals.getRomanToDec();
 		TreeMap<Integer, String> decToRomanMap = romanNumerals.getDecToRoman();
 		
+		// Read the input file. The interface can be implemented to read from any other source later.
 		List<String> inputRomans = romanNumerals.readInput("Roman.txt");
 		Integer charsSaved = 0;
 		
