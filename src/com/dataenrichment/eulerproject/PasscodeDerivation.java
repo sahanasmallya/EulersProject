@@ -14,7 +14,7 @@ public class PasscodeDerivation {
 		PasscodeDerivation passcodeDerivation = new PasscodeDerivation();
 		List<String> keyLogs = passcodeDerivation.getInputFromFile(new File("keylog.txt"));
 
-		String result = "";
+		String passcode = "";
 		List<Character> passcodeChars = new ArrayList<Character>();
 		for (String keyLog : keyLogs) {
 			if (!passcodeChars.contains(keyLog.charAt(0)))
@@ -40,9 +40,9 @@ public class PasscodeDerivation {
 		}
 
 		for (Character c : passcodeChars) {
-			result = result + c;
+			passcode = passcode + c;
 		}
-		System.out.println(result);
+		System.out.println(passcode);
 
 	}
 
