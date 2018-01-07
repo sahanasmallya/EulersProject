@@ -39,13 +39,7 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 			Integer charsSaved = 0;
 			
 			
-			for (String input : inputRomans) {
-				
-				Integer decimalNumber = romanNumerals.toDecimal(input, romanToDecMap);
-				String roman = romanNumerals.toRoman(decimalNumber, decToRomanMap);
-				
-				charsSaved = charsSaved +(input.length() - roman.length()  );
-			}
+			charsSaved = processTask(romanNumerals, romanToDecMap, decToRomanMap, inputRomans, charsSaved);
 			
 			System.out.println("The number of characters that were saved is "+charsSaved);
 		} catch (EulerException e) {
@@ -54,6 +48,19 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 		}
 		
 
+	}
+
+	private static Integer processTask(RomanNumerals romanNumerals, Map<String, Integer> romanToDecMap,
+			TreeMap<Integer, String> decToRomanMap, List<String> inputRomans, Integer charsSaved)
+			throws EulerException {
+		for (String input : inputRomans) {
+			
+			Integer decimalNumber = romanNumerals.toDecimal(input, romanToDecMap);
+			String roman = romanNumerals.toRoman(decimalNumber, decToRomanMap);
+			
+			charsSaved = charsSaved +(input.length() - roman.length()  );
+		}
+		return charsSaved;
 	}
 
 	@Override

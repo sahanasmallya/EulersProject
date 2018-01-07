@@ -16,15 +16,13 @@ public class InputReaderServiceImpl implements InputReaderService {
 
 	public List<String> readInput(String path) {
 		try {
-			return readFromFile(new File (path));
+			return readFromFile(new File(path));
 		} catch (EulerException e) {
 			System.out.println(e.getErrorMessage());
 		}
 		return null;
 	}
-	
-	
-	
+
 	public List<String> readFromFile(File file) throws EulerException {
 
 		File inputFile = file;
@@ -37,19 +35,22 @@ public class InputReaderServiceImpl implements InputReaderService {
 			while ((input = br.readLine()) != null) {
 				inputRomanNumerals.add(input);
 			}
+			return inputRomanNumerals;
 		} catch (FileNotFoundException e) {
 			throw new EulerException(Message.INVALIDPATH);
 		} catch (IOException e) {
 			throw new EulerException(Message.ERROR);
-		}
-		finally {
+		} finally {
+
 			try {
-				br.close();
+				if (null != br)
+					br.close();
+
 			} catch (IOException e) {
 				throw new EulerException(Message.ERROR);
 			}
+
 		}
-		return inputRomanNumerals;
 	}
 
 }
