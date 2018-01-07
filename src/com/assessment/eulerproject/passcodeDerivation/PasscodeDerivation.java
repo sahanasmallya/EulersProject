@@ -37,9 +37,9 @@ public class PasscodeDerivation implements InputReaderService, PasscodeDerivatio
 	}
 
 	@Override
-	public List<String> readInput(String path) throws PasscodeException {
+	public List<String> readInput(String path) throws EulerException {
 		if (null == path || path.length() == 0)
-			throw new PasscodeException(Message.INVALIDPATH);
+			throw new EulerException(Message.INVALIDPATH);
 		return inputReader.readInput(path);
 	}
 

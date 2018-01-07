@@ -48,7 +48,7 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 			}
 			
 			System.out.println("The number of characters that were saved is "+charsSaved);
-		} catch (PasscodeException e) {
+		} catch (EulerException e) {
 			// Do something with the exception
 			System.out.println(e.getMessage());
 		}
@@ -67,7 +67,7 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 	}
 
 	@Override
-	public List<String> readInput(String path) throws PasscodeException {
+	public List<String> readInput(String path) throws EulerException {
 		return inputReader.readInput(path);
 	}
 
