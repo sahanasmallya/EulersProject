@@ -28,9 +28,10 @@ public class InputReaderServiceImpl implements InputReaderService {
 	public List<String> readFromFile(File file) throws EulerException {
 
 		File inputFile = file;
+		BufferedReader br = null;
 		List<String> inputRomanNumerals = new ArrayList<String>();
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(inputFile));
+			br = new BufferedReader(new FileReader(inputFile));
 
 			String input = "";
 			while ((input = br.readLine()) != null) {
@@ -40,6 +41,13 @@ public class InputReaderServiceImpl implements InputReaderService {
 			throw new EulerException(Message.INVALIDPATH);
 		} catch (IOException e) {
 			throw new EulerException(Message.ERROR);
+		}
+		finally {
+			try {
+				br.close();
+			} catch (IOException e) {
+				throw new EulerException(Message.ERROR);
+			}
 		}
 		return inputRomanNumerals;
 	}
