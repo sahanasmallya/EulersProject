@@ -1,5 +1,6 @@
 package com.assessment.eulerproject.tests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,6 +17,7 @@ import com.assessment.eulerproject.exceptions.EulerException;
 
 class RomanNumeralsTest {
 	
+
 	@Test
 	void testRomansToDecSize() {
 		RomanNumerals romanNumerals = new RomanNumerals();
@@ -30,8 +32,9 @@ class RomanNumeralsTest {
 		assertEquals(13, decToRomanMap.size());
 	}
 	
-	
-	@Test
+
+	//Uncomment the following to test the error scenario.
+/*	@Test
 	void testUnavailableFile() {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		String fileName = "NotAvailable.txt";
@@ -42,6 +45,55 @@ class RomanNumeralsTest {
 			assertTrue(  e.getErrorMessage().equals(Message.INVALIDPATH));
 		}
 		
+	}*/
+	
+	
+	@Test 
+	void testNullRepository() throws EulerException {
+		RomanNumerals romanNumerals = new RomanNumerals();
+		try {
+			//Map is null here.
+			romanNumerals.toDecimal("XV", null);
+			assertFalse(true);
+		} catch (EulerException e) {
+			assertTrue(  e.getErrorMessage().equals(Message.ERROR));
+		}
+	}
+	
+	@Test 
+	void testEmptyList() throws EulerException {
+		RomanNumerals romanNumerals = new RomanNumerals();
+		try {
+			assertTrue(15 ==romanNumerals.toDecimal("XV", romanNumerals.getRomanToDec()));
+		} catch (EulerException e) {
+			assertTrue(  e.getErrorMessage().equals(Message.ERROR));
+		}
+	}
+	
+	
+	@Test 
+	void testRomanToDec() throws EulerException {
+		RomanNumerals romanNumerals = new RomanNumerals();
+		try {
+			assertTrue(15 ==romanNumerals.toDecimal("XIIIII", romanNumerals.getRomanToDec()));
+		} catch (EulerException e) {
+			assertTrue(  e.getErrorMessage().equals(Message.ERROR));
+		}
+	}
+	
+	@Test 
+	void testDecToRoman() throws EulerException {
+		RomanNumerals romanNumerals = new RomanNumerals();
+		try {
+			assertEquals("XV",romanNumerals.toRoman(15, romanNumerals.getDecToRoman()));
+		} catch (EulerException e) {
+			assertTrue(  e.getErrorMessage().equals(Message.ERROR));
+		}
+	}
+	@Test 
+	void testSubtractives() throws EulerException {
+		RomanNumerals romanNumerals = new RomanNumerals();
+		assertEquals(3, romanNumerals.getSubtractives().size());
 	}
 	
 

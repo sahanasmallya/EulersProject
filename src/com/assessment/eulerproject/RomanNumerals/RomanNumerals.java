@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.assessment.eulerproject.constants.Message;
 import com.assessment.eulerproject.exceptions.EulerException;
 import com.assessment.eulerproject.exceptions.PasscodeException;
 import com.assessment.eulerproject.services.InputReaderService;
@@ -36,10 +37,18 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 		List<String> inputRomans;
 		try {
 			inputRomans = romanNumerals.readInput("Roman.txt");
+			if(null==inputRomans) {
+				throw new EulerException(Message.ERROR);
+			}
 			Integer charsSaved = 0;
 			
-			
-			charsSaved = processTask(romanNumerals, romanToDecMap, decToRomanMap, inputRomans, charsSaved);
+			for (String input : inputRomans) {
+				
+				Integer decimalNumber = romanNumerals.toDecimal(input, romanToDecMap);
+				String roman = romanNumerals.toRoman(decimalNumber, decToRomanMap);
+				
+				charsSaved = charsSaved +(input.length() - roman.length()  );
+			}
 			
 			System.out.println("The number of characters that were saved is "+charsSaved);
 		} catch (EulerException e) {
@@ -48,19 +57,6 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 		}
 		
 
-	}
-
-	private static Integer processTask(RomanNumerals romanNumerals, Map<String, Integer> romanToDecMap,
-			TreeMap<Integer, String> decToRomanMap, List<String> inputRomans, Integer charsSaved)
-			throws EulerException {
-		for (String input : inputRomans) {
-			
-			Integer decimalNumber = romanNumerals.toDecimal(input, romanToDecMap);
-			String roman = romanNumerals.toRoman(decimalNumber, decToRomanMap);
-			
-			charsSaved = charsSaved +(input.length() - roman.length()  );
-		}
-		return charsSaved;
 	}
 
 	@Override
