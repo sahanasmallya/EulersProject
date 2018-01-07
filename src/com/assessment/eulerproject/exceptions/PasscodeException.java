@@ -1,4 +1,4 @@
-package com.assessment.eulerproject.passcodeDerivation;
+package com.assessment.eulerproject.exceptions;
 
 public class PasscodeException extends Exception {
 
@@ -6,6 +6,9 @@ public class PasscodeException extends Exception {
 	public PasscodeException(String error) {
 		super();
 		this.errorMessage = error;
+	}
+	public String getErrorMessage() {
+		return this.errorMessage;
 	}
 
 }

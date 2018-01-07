@@ -8,17 +8,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.assessment.eulerproject.constants.Message;
+import com.assessment.eulerproject.exceptions.EulerException;
 import com.assessment.eulerproject.services.InputReaderService;
 
 public class InputReaderServiceImpl implements InputReaderService {
 
 	public List<String> readInput(String path) {
-		return readFromFile(new File (path));
+		try {
+			return readFromFile(new File (path));
+		} catch (EulerException e) {
+			System.out.println(e.getErrorMessage());
+		}
+		return null;
 	}
 	
 	
 	
-	public List<String> readFromFile(File file) {
+	public List<String> readFromFile(File file) throws EulerException {
 
 		File inputFile = file;
 		List<String> inputRomanNumerals = new ArrayList<String>();
@@ -30,9 +37,9 @@ public class InputReaderServiceImpl implements InputReaderService {
 				inputRomanNumerals.add(input);
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
+			throw new EulerException(Message.INVALIDPATH);
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			throw new EulerException(Message.ERROR);
 		}
 		return inputRomanNumerals;
 	}

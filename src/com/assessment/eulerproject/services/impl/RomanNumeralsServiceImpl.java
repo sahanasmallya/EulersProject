@@ -6,15 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.assessment.eulerproject.constants.Message;
+import com.assessment.eulerproject.exceptions.EulerException;
 import com.assessment.eulerproject.services.RomanNumeralService;
 
 public class RomanNumeralsServiceImpl implements RomanNumeralService {
 
-	public String toRoman(Integer decimalNumber, TreeMap<Integer, String> decimalToRomans) {
+	public String toRoman(Integer decimalNumber, TreeMap<Integer, String> decimalToRomans) throws EulerException {
 
+		if(null == decimalToRomans || decimalToRomans.size()==0) throw new EulerException(Message.ERROR);
 		// Iterating the map in descending order to get the maximum as the roman base.
 		// For eg, 4390 will first have M as base which is the highest value
-
+		
 		Iterator<Integer> iterator = decimalToRomans.descendingKeySet().iterator();
 		StringBuffer romanString = new StringBuffer();
 
@@ -31,8 +34,9 @@ public class RomanNumeralsServiceImpl implements RomanNumeralService {
 		return romanString.toString();
 	}
 
-	public Integer toDecimal(String input, Map<String, Integer> romansToDec) {
+	public Integer toDecimal(String input, Map<String, Integer> romansToDec) throws EulerException {
 		Integer decimal = 0;
+		if(null == romansToDec || romansToDec.size()==0) throw new EulerException(Message.ERROR);
 		List<Character> subtractives = getSubtractives(); //  I, X, and C : REference https://projecteuler.net/about=roman_numerals
 			
 

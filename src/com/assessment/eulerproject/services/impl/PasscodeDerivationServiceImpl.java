@@ -2,35 +2,41 @@ package com.assessment.eulerproject.services.impl;
 
 import java.util.List;
 
+import com.assessment.eulerproject.constants.Message;
+import com.assessment.eulerproject.exceptions.EulerException;
+import com.assessment.eulerproject.exceptions.PasscodeException;
 import com.assessment.eulerproject.passcodeDerivation.PasscodeDerivation;
-import com.assessment.eulerproject.passcodeDerivation.PasscodeException;
 import com.assessment.eulerproject.services.PasscodeDerivationService;
 
 public class PasscodeDerivationServiceImpl implements PasscodeDerivationService {
 	
 	
 
-	public void swapPositionsOfChars(List<Character> passcodeChars, Integer previousIndex, Integer currentIndex) {
+	public void swapPositionsOfChars(List<Character> passcodeChars, Integer previousIndex, Integer currentIndex)  {
+		
+		
+		
 		Character previous = passcodeChars.get(previousIndex);
 		Character current = passcodeChars.get(currentIndex);
+		
 		passcodeChars.set(previousIndex, current);
 		passcodeChars.set(currentIndex, previous);
 
 	}
 
-	public void addPasscodeChars(List<Character> passcodeChars, Character passcodeChar) {
+	public void addPasscodeChars(List<Character> passcodeChars, Character passcodeChar) throws EulerException {
 		try {
 			if (passcodeChars.contains(passcodeChar))
-				throw new PasscodeException("Attempt to add duplicate value");
+				throw new EulerException("Attempt to add duplicate value");
 			passcodeChars.add(passcodeChar);
-		} catch (PasscodeException e) {
+		} catch (EulerException e) {
 			System.out.println(e.getMessage());
 		}
 
 	}
 	
 	public  void derivePasscodeChars(PasscodeDerivation passcodeDerivation, List<String> keyLogs,
-			List<Character> passcodeChars) {
+			List<Character> passcodeChars) throws EulerException {
 		for (String keyLog : keyLogs) {
 			if (!passcodeChars.contains(keyLog.charAt(0)))
 				passcodeDerivation.addPasscodeChars(passcodeChars, keyLog.charAt(0));

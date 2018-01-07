@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.assessment.eulerproject.exceptions.EulerException;
+import com.assessment.eulerproject.exceptions.PasscodeException;
 import com.assessment.eulerproject.services.InputReaderService;
 import com.assessment.eulerproject.services.RepositoryService;
 import com.assessment.eulerproject.services.RomanNumeralService;
@@ -22,7 +24,7 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 	static RomanNumeralService romanImpl = new RomanNumeralsServiceImpl();
 	 
 	
-	public static void main(String[] s) {
+	public static void main(String[] s) throws EulerException {
 		
 		RomanNumerals romanNumerals = new RomanNumerals();
 		
@@ -31,34 +33,41 @@ public class RomanNumerals implements RepositoryService,InputReaderService, Roma
 		TreeMap<Integer, String> decToRomanMap = romanNumerals.getDecToRoman();
 		
 		// Read the input file. The interface can be implemented to read from any other source later.
-		List<String> inputRomans = romanNumerals.readInput("Roman.txt");
-		Integer charsSaved = 0;
-		
-		
-		for (String input : inputRomans) {
+		List<String> inputRomans;
+		try {
+			inputRomans = romanNumerals.readInput("Roman.txt");
+			Integer charsSaved = 0;
 			
-			Integer decimalNumber = romanNumerals.toDecimal(input, romanToDecMap);
-			String roman = romanNumerals.toRoman(decimalNumber, decToRomanMap);
 			
-			charsSaved = charsSaved +(input.length() - roman.length()  );
+			for (String input : inputRomans) {
+				
+				Integer decimalNumber = romanNumerals.toDecimal(input, romanToDecMap);
+				String roman = romanNumerals.toRoman(decimalNumber, decToRomanMap);
+				
+				charsSaved = charsSaved +(input.length() - roman.length()  );
+			}
+			
+			System.out.println("The number of characters that were saved is "+charsSaved);
+		} catch (PasscodeException e) {
+			// Do something with the exception
+			System.out.println(e.getMessage());
 		}
 		
-		System.out.println("The number of characters that were saved is "+charsSaved);
 
 	}
 
 	@Override
-	public Integer toDecimal(String input, Map<String, Integer> romansToDec) {
+	public Integer toDecimal(String input, Map<String, Integer> romansToDec) throws EulerException {
 		return romanImpl.toDecimal(input, romansToDec);
 	}
 
 	@Override
-	public String toRoman(Integer decimalNumber, TreeMap<Integer, String> decimalToRomans) {
+	public String toRoman(Integer decimalNumber, TreeMap<Integer, String> decimalToRomans) throws EulerException {
 		return romanImpl.toRoman(decimalNumber, decimalToRomans);
 	}
 
 	@Override
-	public List<String> readInput(String path) {
+	public List<String> readInput(String path) throws PasscodeException {
 		return inputReader.readInput(path);
 	}
 
