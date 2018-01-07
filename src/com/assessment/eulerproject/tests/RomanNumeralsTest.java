@@ -1,11 +1,10 @@
 package com.assessment.eulerproject.tests;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -85,11 +84,44 @@ class RomanNumeralsTest {
 	void testDecToRoman() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		try {
-			assertEquals("XV",romanNumerals.toRoman(15, romanNumerals.getDecToRoman()));
+			assertEquals("XVI",romanNumerals.toRoman(16, romanNumerals.getDecToRoman()));
 		} catch (EulerException e) {
 			assertTrue(  e.getErrorMessage().equals(Message.ERROR));
 		}
 	}
+	
+	@Test 
+	void testNegativeDecToRoman() throws EulerException {
+		RomanNumerals romanNumerals = new RomanNumerals();
+		try {
+			assertEquals("-MMMMM",romanNumerals.toRoman(-5000, romanNumerals.getDecToRoman()));
+		} catch (EulerException e) {
+			assertTrue(  e.getErrorMessage().equals(Message.ERROR));
+		}
+	}
+	
+	@Test 
+	void testSpecialDecToRoman() throws EulerException {
+		RomanNumerals romanNumerals = new RomanNumerals();
+		try {
+			assertEquals("I",romanNumerals.toRoman((int) 1.234, romanNumerals.getDecToRoman()));
+		} catch (EulerException e) {
+			assertTrue(  e.getErrorMessage().equals(Message.ERROR));
+		}
+	}
+	
+	@Test 
+	void testInvalidRomantoDec() throws EulerException {
+		RomanNumerals romanNumerals = new RomanNumerals();
+		try {
+			romanNumerals.toDecimal("InvalidRomanNumber", romanNumerals.getRomanToDec());
+			fail("Expected a EulerException");
+		} catch (EulerException e) {
+			assertTrue(  e.getErrorMessage().equals(Message.NOT_FOUND));
+		}
+	}
+	
+	
 	@Test 
 	void testSubtractives() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();

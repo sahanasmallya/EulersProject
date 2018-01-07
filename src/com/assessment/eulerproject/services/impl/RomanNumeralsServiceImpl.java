@@ -15,12 +15,17 @@ public class RomanNumeralsServiceImpl implements RomanNumeralService {
 	public String toRoman(Integer decimalNumber, TreeMap<Integer, String> decimalToRomans) throws EulerException {
 
 		if(null == decimalToRomans || decimalToRomans.size()==0) throw new EulerException(Message.ERROR);
+		
+		
 		// Iterating the map in descending order to get the maximum as the roman base.
 		// For eg, 4390 will first have M as base which is the highest value
 		
 		Iterator<Integer> iterator = decimalToRomans.descendingKeySet().iterator();
 		StringBuffer romanString = new StringBuffer();
-
+		if(decimalNumber<0) {
+			romanString.append("-");
+			decimalNumber = Math.abs(decimalNumber);
+		}
 		while (iterator.hasNext()) {
 			Integer romanBase = (Integer) iterator.next();
 			while (decimalNumber >= romanBase) {
@@ -43,6 +48,7 @@ public class RomanNumeralsServiceImpl implements RomanNumeralService {
 		for (int i = 0; i < input.length(); i++) {
 			Character character = input.charAt(i);
 			
+			
 			//Converting to string to search in the romansToDec Map.
 			String strCharacter = character+"";
 			
@@ -58,9 +64,11 @@ public class RomanNumeralsServiceImpl implements RomanNumeralService {
 					i++;
 				}
 				else {
+					if(null == romansToDec.get(strCharacter))throw new EulerException(Message.NOT_FOUND);
 					decimal = decimal + romansToDec.get(strCharacter);
 				}
 			} else {
+				if(null == romansToDec.get(strCharacter))throw new EulerException(Message.NOT_FOUND);
 				decimal = decimal + romansToDec.get(strCharacter);
 			}
 			
