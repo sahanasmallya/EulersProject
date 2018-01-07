@@ -14,8 +14,7 @@ public class PasscodeDerivationServiceImpl implements PasscodeDerivationService 
 
 	public void swapPositionsOfChars(List<Character> passcodeChars, Integer previousIndex, Integer currentIndex)  {
 		
-		
-		
+				
 		Character previous = passcodeChars.get(previousIndex);
 		Character current = passcodeChars.get(currentIndex);
 		
@@ -26,6 +25,7 @@ public class PasscodeDerivationServiceImpl implements PasscodeDerivationService 
 
 	public void addPasscodeChars(List<Character> passcodeChars, Character passcodeChar) throws EulerException {
 		try {
+			if(null == passcodeChars)throw new EulerException(Message.ERROR);
 			if (passcodeChars.contains(passcodeChar))
 				throw new EulerException("Attempt to add duplicate value");
 			passcodeChars.add(passcodeChar);

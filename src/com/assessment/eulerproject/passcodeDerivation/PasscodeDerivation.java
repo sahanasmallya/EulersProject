@@ -16,6 +16,7 @@ public class PasscodeDerivation implements InputReaderService, PasscodeDerivatio
 	static InputReaderService inputReader = new InputReaderServiceImpl();
 	static PasscodeDerivationService passcodeDerivationService = new PasscodeDerivationServiceImpl();
 
+	
 	public static void main(String[] args) throws PasscodeException {
 		PasscodeDerivation passcodeDerivation = new PasscodeDerivation();
 		List<String> keyLogs;
