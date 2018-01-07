@@ -37,6 +37,7 @@ public class PasscodeDerivationServiceImpl implements PasscodeDerivationService 
 	
 	public  void derivePasscodeChars(PasscodeDerivation passcodeDerivation, List<String> keyLogs,
 			List<Character> passcodeChars) throws EulerException {
+		if(null == keyLogs) throw new EulerException(Message.ERROR);
 		for (String keyLog : keyLogs) {
 			if (!passcodeChars.contains(keyLog.charAt(0)))
 				passcodeDerivation.addPasscodeChars(passcodeChars, keyLog.charAt(0));
