@@ -17,14 +17,14 @@ import com.assessment.eulerproject.exceptions.EulerException;
 class RomanNumeralsTest {
 	
 
-	@Test
+	@Test // This test verifies that  repository holds the roman to decimal conversions information correctly
 	void testRomansToDecSize() {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		Map<String, Integer> decToRomanMap = romanNumerals.getRomanToDec();
 		assertEquals(13, decToRomanMap.size());
 	}
 	
-	@Test
+	@Test // This test verifies that  repository holds the decimal to roman conversions information correctly
 	void testDecToRomansSize() {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		TreeMap<Integer, String> decToRomanMap = romanNumerals.getDecToRoman();
@@ -33,7 +33,7 @@ class RomanNumeralsTest {
 	
 
 	//Uncomment the following to test the error scenario.
-/*	@Test
+/*	@Test // This test verifies that a EulerException is thrown if the input file is not found
 	void testUnavailableFile() {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		String fileName = "NotAvailable.txt";
@@ -47,7 +47,7 @@ class RomanNumeralsTest {
 	}*/
 	
 	
-	@Test 
+	@Test  // This test verifies that a EulerException is thrown if the repository is null. Repository holds the conversion from Roman to Decimal information.
 	void testNullRepository() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		try {
@@ -59,18 +59,18 @@ class RomanNumeralsTest {
 		}
 	}
 	
-	@Test 
+	@Test  // This test verifies success scenario for conversion to decimal . Here the roman string is in its minified form
 	void testEmptyList() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		try {
 			assertTrue(15 ==romanNumerals.toDecimal("XV", romanNumerals.getRomanToDec()));
 		} catch (EulerException e) {
-			assertTrue(  e.getErrorMessage().equals(Message.ERROR));
+			assertFalse(  true);
 		}
 	}
 	
 	
-	@Test 
+	@Test // This test verifies success scenario for conversion to decimal . Here the roman string is in its longer form
 	void testRomanToDec() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		try {
@@ -80,7 +80,7 @@ class RomanNumeralsTest {
 		}
 	}
 	
-	@Test 
+	@Test // This test verifies success scenario for conversion to roman . 
 	void testDecToRoman() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		try {
@@ -90,7 +90,7 @@ class RomanNumeralsTest {
 		}
 	}
 	
-	@Test 
+	@Test // This test verifies success scenario for conversion to roman for a negative decimal  . 
 	void testNegativeDecToRoman() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		try {
@@ -100,7 +100,7 @@ class RomanNumeralsTest {
 		}
 	}
 	
-	@Test 
+	@Test // This test verifies success scenario for conversion to roman for a decimal with  decimal point  . 
 	void testSpecialDecToRoman() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		try {
@@ -110,7 +110,7 @@ class RomanNumeralsTest {
 		}
 	}
 	
-	@Test 
+	@Test // This test verifies  scenario for conversion to decimal for a invalid string  . 
 	void testInvalidRomantoDec() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		try {
@@ -122,7 +122,7 @@ class RomanNumeralsTest {
 	}
 	
 	
-	@Test 
+	@Test // This test verifies that the subtractives are available correctly . 
 	void testSubtractives() throws EulerException {
 		RomanNumerals romanNumerals = new RomanNumerals();
 		assertEquals(3, romanNumerals.getSubtractives().size());
